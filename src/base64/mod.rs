@@ -1,6 +1,5 @@
 
-pub fn to_base64(string: &str) -> String {
-    let bytes = string.as_bytes();
+pub fn to_base64(bytes: &[u8]) -> String {
     let mut result = String::with_capacity((4 * (bytes.len() / 3)));
 
     let (mut remainder, mut rem_bytes) = (0u8, 0u8);
@@ -53,40 +52,41 @@ mod base64_tests {
 
     #[test]
     fn test_empty() {
-        assert_eq!(to_base64(&""), "")
+        assert_eq!(to_base64(&"".as_bytes()), "")
     }
 
     #[test]
     fn test_Man() {
-        assert_eq!(to_base64(&"Man"), "TWFu")
+        assert_eq!(to_base64(&"Man".as_bytes()), "TWFu")
     }
 
     #[test]
     fn test_M() {
-        assert_eq!(to_base64(&"M"), "TQ==")
+        assert_eq!(to_base64(&"M".as_bytes()), "TQ==")
     }
 
     #[test]
     fn test_Horse() {
-        assert_eq!(to_base64(&"Horse"), "SG9yc2U=")
+        assert_eq!(to_base64(&"Horse".as_bytes()), "SG9yc2U=")
     }
     #[test]
     fn test_hurricane() {
-        assert_eq!(to_base64(&"hurricane"), "aHVycmljYW5l")
+        assert_eq!(to_base64(&"hurricane".as_bytes()), "aHVycmljYW5l")
     }
 
     #[test]
     fn test_banana() {
-        assert_eq!(to_base64(&"banana"), "YmFuYW5h")
+        assert_eq!(to_base64(&"banana".as_bytes()), "YmFuYW5h")
     }
 
     #[test]
     fn test_banana_nababa() {
-        assert_eq!(to_base64(&"banana nababa"), "YmFuYW5hIG5hYmFiYQ==")
+        assert_eq!(to_base64(&"banana nababa".as_bytes()),
+                   "YmFuYW5hIG5hYmFiYQ==")
     }
 
     #[test]
     fn test_trololol() {
-        assert_eq!(to_base64(&"trololol"), "dHJvbG9sb2w=")
+        assert_eq!(to_base64(&"trololol".as_bytes()), "dHJvbG9sb2w=")
     }
 }

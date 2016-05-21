@@ -1,26 +1,34 @@
-use std::char;
 
 
-pub fn hex_to_string(string: &str) -> String {
-    let bytes = string.as_bytes();
 
+pub fn to_hex_str(bytes: &[u8]) -> String {
+    let mut result = String::with_capacity(2 * bytes.len());
+
+    for byte in bytes {
+        result.push_str(&format!("{:x}", byte));
+    }
+    result
+}
+
+
+
+pub fn parse_hex_str(bytes: &[u8]) -> Vec<u8> {
     assert!(bytes.len() % 2 == 0);
 
-    let mut result = String::with_capacity(bytes.len() / 2);
-    let mut val: u32;
+    let mut result: Vec<u8> = Vec::with_capacity(bytes.len() / 2);
+    let mut val: u8;
 
     for mut i in 0..(bytes.len() / 2) {
         i *= 2;
         val = parse(bytes[i] as char).unwrap() * 16 + parse(bytes[i + 1] as char).unwrap();
 
-        result.push(char::from_u32(val).unwrap());
+        result.push(val);
     }
-
     result
 }
 
 
-fn parse(ch: char) -> Option<u32> {
+fn parse(ch: char) -> Option<u8> {
     Some(match ch {
         '0' => 0,
         '1' => 1,
@@ -48,27 +56,35 @@ fn parse(ch: char) -> Option<u32> {
 
 #[cfg(test)]
 mod hex_tests {
-    use super::hex_to_string;
+    use super::parse_hex_str;
+    use super::to_hex_str;
 
     #[test]
     fn test_empty() {
-        assert_eq!(hex_to_string(""), "")
+        assert_eq!(parse_hex_str("".as_bytes()), "".as_bytes())
     }
 
     #[test]
     fn test_TfS() {
-        assert_eq!(hex_to_string("546653"), "TfS");
+        assert_eq!(parse_hex_str("546653".as_bytes()), "TfS".as_bytes());
     }
 
     #[test]
     fn test_crypto() {
-        assert_eq!(hex_to_string("49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"),
-                   "I'm killing your brain like a poisonous mushroom")
+        assert_eq!(parse_hex_str("49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d".as_bytes()),
+                   "I'm killing your brain like a poisonous mushroom".as_bytes())
     }
 
     #[test]
     fn test_natale() {
-        assert_eq!(hex_to_string("626162626F206E6174616C6520652720756E206964696F7461"),
-                   "babbo natale e' un idiota");
+        assert_eq!(parse_hex_str("626162626F206E6174616C6520652720756E206964696F7461".as_bytes()),
+                   "babbo natale e' un idiota".as_bytes());
+    }
+
+
+    #[test]
+    fn test_to_str() {
+        let string = "626162626f206e6174616c6520652720756e206964696f7461";
+        assert_eq!(to_hex_str(&parse_hex_str(string.as_bytes())), string);
     }
 }
