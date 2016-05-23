@@ -3,6 +3,12 @@ mod hex;
 mod bytes;
 mod lang;
 
+use std::error::Error;
+use std::fs::File;
+use std::io::prelude::*;
+use std::path::Path;
+use std::io::BufReader;
+
 use base64::to_base64;
 use hex::*;
 use bytes::*;
@@ -34,4 +40,41 @@ fn main() {
     println!("Challenge #3 => {:?}",
              crack_xor_cypher(&parse_hex_str(C3_HEX.as_bytes())));
 
+    println!("Challenge #4 => {}", challenge_4());
+
+}
+
+
+
+fn challenge_4() -> String {
+    let path = Path::new("assets/challenge_4/4.txt");
+    let display = path.display();
+
+    // Open the path in read-only mode, returns `io::Result<File>`
+    let file = match File::open(&path) {
+        // The `description` method of `io::Error` returns a string that
+        // describes the error
+        Err(why) => panic!("couldn't open {}: {}", display, Error::description(&why)),
+        Ok(file) => file,
+    };
+    let mut buffer = String::new();
+    let mut reader = BufReader::new(file);
+
+    let mut num = 0;
+    let mut result = (0.0, 0, ' ', "".to_string());
+    while reader.read_line(&mut buffer).unwrap() > 0 {
+
+        let (_, chr, string, score) = crack_xor_cypher(&parse_hex_str(buffer.trim().as_bytes()));
+        if score > result.0 {
+            result = (score, num, chr, string);
+        }
+
+        num += 1;
+        buffer.clear();
+    }
+
+    format!("Line #{} with key {:?} => {:?}",
+            result.1,
+            result.2,
+            result.3)
 }

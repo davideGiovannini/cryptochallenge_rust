@@ -2,7 +2,7 @@
 use bytes::xor_byte;
 use std::char;
 
-pub fn crack_xor_cypher(bytes: &[u8]) -> (u8, char, String) {
+pub fn crack_xor_cypher(bytes: &[u8]) -> (u8, char, String, f64) {
     let mut most_likely = (0.0, 0);
 
     for key in 0..256u16 {
@@ -16,7 +16,8 @@ pub fn crack_xor_cypher(bytes: &[u8]) -> (u8, char, String) {
     return (most_likely.1,
             char::from_u32(most_likely.1 as u32).unwrap_or(' '),
             String::from_utf8(xor_byte(bytes, most_likely.1))
-        .unwrap_or("Error while converting from bytes to utf8 string".to_string()));
+        .unwrap_or("Error while converting from bytes to utf8 string".to_string()),
+            most_likely.0);
 }
 
 

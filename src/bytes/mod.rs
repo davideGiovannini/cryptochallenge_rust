@@ -25,8 +25,6 @@ pub fn xor_byte(bytes_seq: &[u8], byte: u8) -> Vec<u8> {
 }
 
 
-
-
 #[cfg(test)]
 mod bytes_tests {
     use super::xor;
