@@ -1,6 +1,6 @@
 
 
-pub fn xor(bytes_1: &[u8], bytes_2: &[u8]) -> Vec<u8> {
+pub fn xor_seqs(bytes_1: &[u8], bytes_2: &[u8]) -> Vec<u8> {
     assert_eq!(bytes_1.len(), bytes_2.len());
 
     let mut result = Vec::with_capacity(bytes_1.len());
@@ -13,7 +13,16 @@ pub fn xor(bytes_1: &[u8], bytes_2: &[u8]) -> Vec<u8> {
 }
 
 
+pub fn xor_byte(bytes_seq: &[u8], byte: u8) -> Vec<u8> {
 
+    let mut result = Vec::with_capacity(bytes_seq.len());
+
+    for b in bytes_seq {
+        result.push(b ^ byte);
+    }
+
+    result
+}
 
 
 
