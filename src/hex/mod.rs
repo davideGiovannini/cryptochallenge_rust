@@ -5,7 +5,7 @@ pub fn to_hex_str(bytes: &[u8]) -> String {
     let mut result = String::with_capacity(2 * bytes.len());
 
     for byte in bytes {
-        result.push_str(&format!("{:x}", byte));
+        result.push_str(&format!("{:02x}", byte));
     }
     result
 }

@@ -27,10 +27,11 @@ pub fn xor_byte(bytes_seq: &[u8], byte: u8) -> Vec<u8> {
 
 #[cfg(test)]
 mod bytes_tests {
-    use super::xor;
+    use super::xor_seqs;
 
     #[test]
     fn test_xor() {
-        assert_eq!(xor(&vec![0xF0, 0x0F], &vec![0x0F, 0x0F]), vec![0xFF, 0x00]);
+        assert_eq!(xor_seqs(&vec![0xF0, 0x0F], &vec![0x0F, 0x0F]),
+                   vec![0xFF, 0x00]);
     }
 }
