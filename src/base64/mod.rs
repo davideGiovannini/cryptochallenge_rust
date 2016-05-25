@@ -1,4 +1,5 @@
 
+/// Encodes in base64 a given byte sequence.
 pub fn to_base64(bytes: &[u8]) -> String {
     let mut result = String::with_capacity((4 * (bytes.len() / 3)));
 

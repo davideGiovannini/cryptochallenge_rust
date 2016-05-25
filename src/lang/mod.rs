@@ -2,6 +2,9 @@
 use bytes::xor_byte;
 use std::char;
 
+/// Find the most likely key for a byte string encrypted with bitwise XOR.
+///
+/// The return value is (keyAsByte, keyAsChar, decryptedString, score).
 pub fn crack_xor_cypher(bytes: &[u8]) -> (u8, char, String, f64) {
     let mut most_likely = (0.0, 0);
 
@@ -20,7 +23,9 @@ pub fn crack_xor_cypher(bytes: &[u8]) -> (u8, char, String, f64) {
             most_likely.0);
 }
 
-
+/// Assign a score to a char sequence rating the likelihood that it contains english words.
+///
+/// The return value is not normalized.
 pub fn score_as_english(bytes: &[u8]) -> f64 {
     let mut value = 1.0;
     for byte in bytes {

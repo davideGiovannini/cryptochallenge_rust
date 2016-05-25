@@ -1,5 +1,5 @@
 
-
+/// Computes the bitwise XOR between two byte sequences of the same lenght.
 pub fn xor_seqs(bytes_1: &[u8], bytes_2: &[u8]) -> Vec<u8> {
     assert_eq!(bytes_1.len(), bytes_2.len());
 
@@ -12,7 +12,7 @@ pub fn xor_seqs(bytes_1: &[u8], bytes_2: &[u8]) -> Vec<u8> {
     result
 }
 
-
+/// Computes the bitwise XOR between each byte of a byte sequence and a given byte.
 pub fn xor_byte(bytes_seq: &[u8], byte: u8) -> Vec<u8> {
 
     let mut result = Vec::with_capacity(bytes_seq.len());

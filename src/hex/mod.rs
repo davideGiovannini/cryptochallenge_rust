@@ -1,6 +1,6 @@
 
 
-
+/// Converts a given byte sequence to a string representation in hexadecimal.
 pub fn to_hex_str(bytes: &[u8]) -> String {
     let mut result = String::with_capacity(2 * bytes.len());
 
@@ -11,7 +11,7 @@ pub fn to_hex_str(bytes: &[u8]) -> String {
 }
 
 
-
+/// Converts a given hex string to the corresponding sequence of bytes.
 pub fn parse_hex_str(bytes: &[u8]) -> Vec<u8> {
     assert!(bytes.len() % 2 == 0);
 
