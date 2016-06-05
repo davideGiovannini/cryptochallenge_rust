@@ -61,24 +61,24 @@ mod hex_tests {
 
     #[test]
     fn test_empty() {
-        assert_eq!(parse_hex_str("".as_bytes()), "".as_bytes())
+        assert_eq!(parse_hex_str(b""), b"")
     }
 
     #[test]
     fn test_TfS() {
-        assert_eq!(parse_hex_str("546653".as_bytes()), "TfS".as_bytes());
+        assert_eq!(parse_hex_str(b"546653"), b"TfS");
     }
 
     #[test]
     fn test_crypto() {
-        assert_eq!(parse_hex_str("49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d".as_bytes()),
+        assert_eq!(parse_hex_str(b"49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"),
                    "I'm killing your brain like a poisonous mushroom".as_bytes())
     }
 
     #[test]
     fn test_natale() {
-        assert_eq!(parse_hex_str("626162626F206E6174616C6520652720756E206964696F7461".as_bytes()),
-                   "babbo natale e' un idiota".as_bytes());
+        assert_eq!(parse_hex_str(b"626162626F206E6174616C6520652720756E206964696F7461"),
+                   b"babbo natale e' un idiota");
     }
 
 

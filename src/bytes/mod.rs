@@ -56,7 +56,7 @@ mod bytes_tests {
 
     #[test]
     fn test_hamming() {
-        assert_eq!(hamming_bit_distance("this is a test".as_bytes(), "wokka wokka!!!".as_bytes()),
+        assert_eq!(hamming_bit_distance(b"this is a test", b"wokka wokka!!!"),
                    37);
     }
 }
